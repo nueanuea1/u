@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You Heart Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 500px;
+            height: 600px;
+        }
+        .letter {
+            position: absolute;
+            font-size: 32px;
+            color: rgb(230, 224, 224);
+            font-weight: bold;
+        }
+        .center-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+        .extra-images {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Add transition for smooth fade */
+        }
+        .extra-images:nth-child(2) {
+            top: 10%;
+            left: 70%;
+        }
+        .extra-images:nth-child(3) {
+            top: 70%;
+            left: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="heartContainer">
+        <!-- Add images for "extra-images" -->
+            <img src="https://github.com/nueanuea1/KunChompu/blob/main/index/25.jpg?raw=true" alt="Heart Center Image" class="center-image"> 
+           
+        
+    </div>
+
+    <script>
+        const text = " I LOVE YOU ".split('');
+        const numPoints = text.length;
+        const container = document.getElementById("heartContainer");
+
+        function heartShape(t) {
+            const x = 20 * Math.pow(Math.sin(t), 3);
+            const y = 17 * Math.cos(t) - 7 * Math.cos(2 * t) - 3 * Math.cos(3 * t) - Math.cos(4 * t);
+            return [x, -y];
+        }
+
+        for (let i = 0; i < numPoints; i++) {
+            const span = document.createElement("span");
+            span.classList.add("letter");
+            span.textContent = text[i];
+            container.appendChild(span);
+        }
+
+        function animateHeart() {
+            const letters = document.querySelectorAll(".letter");
+            let t = 0;
+            function update() {
+                t += 0.009;
+                letters.forEach((letter, i) => {
+                    const [x, y] = heartShape(t + i * 0.6);
+                    letter.style.transform = `translate(${x * 25 + 250}px, ${y * 25 + 250}px)`;
+                });
+                requestAnimationFrame(update);
+            }
+            update();
+        }
+
+        animateHeart();
+
+        // Images for changing
+
+    </script>
+</body>
+</html>
